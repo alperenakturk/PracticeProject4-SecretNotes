@@ -1,8 +1,6 @@
 from tkinter import *
 from tkinter import messagebox
-from PIL import Image, ImageTk
 import onetimepad
-
 
 def center_window(width=350, height=650):
     screen_width = window.winfo_screenwidth()
@@ -29,7 +27,7 @@ def save_encrypt_button_clicked():
             encrypted_note = onetimepad.encrypt(note, master_key)  # Metni şifrele
             with open(file_path, 'a') as file:  # Notları ekleme modunda aç
                 file.write(f"Title: {title}\n{encrypted_note}\n\n")  # Başlığı ve şifreli notu dosyaya ekle
-                messagebox.showinfo("Information", f"Note saved to: {file_path}" )
+                messagebox.showinfo("Information", f"Note saved to: {file_path}")
                 title_key_entry.delete(0, END)  # Başlık alanını temizle
                 secret_text.delete('1.0', END)  # Not alanını temizle
                 master_key_entry.delete(0, END)  # Anahtar alanını temizle
@@ -57,15 +55,9 @@ def decrypt_button_clicked():
 
 
 # IMAGE
-# Read the Image
-image = Image.open("topSecret.png")
-# Resize the image using resize() method
-resize_image = image.resize((115, 115))
-top_secret_image = ImageTk.PhotoImage(resize_image)
-
-# Create label and add resize image
-image_label = Label(window, image=top_secret_image, bg="light gray")
-image_label.place(x=115, y=10)
+logo = PhotoImage(file="secretNotes.png")
+logo_label = Label(image=logo, bg="light gray")
+logo_label.pack()
 
 # Title label
 title_label = Label(text="Enter your title")
@@ -102,6 +94,5 @@ save_encrypt_button_button.place(x=110, y=510)
 # Decrypt button
 decrypt_button = Button(text="Decrypt", command=decrypt_button_clicked)
 decrypt_button.place(x=130, y=550)
-
 
 window.mainloop()
